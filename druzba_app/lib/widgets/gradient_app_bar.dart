@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:test/views/home_view.dart';
 import 'search_bar.dart';
 import '../icons/custom_home_icons.dart';
 
 class GradientAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final String title;
+  final HomeViewState hvs;
   static const double barHeight = 80.0;
 
-  GradientAppBar(this.title);
+  GradientAppBar(this.hvs);
 
   @override
   GradientAppBArState createState() => GradientAppBArState();
@@ -34,7 +35,7 @@ class GradientAppBArState extends State<GradientAppBar> {
         child: Column(children: [
           Row(
             children: [
-              SearchWidget(),
+              SearchWidget(widget.hvs),
               IconButton(
                   onPressed: () => {print('logout')},
                   icon: Icon(
