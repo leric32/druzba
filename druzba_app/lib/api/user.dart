@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:test/views/login_view.dart';
+import 'package:test/views/home_view.dart';
 import 'url.dart';
 import 'package:http/http.dart' as http;
 import '../models/activity.dart';
+import 'package:flutter/material.dart';
 
 class UserAPI {
   static Future<bool> checkLogin(String username, String pass) {
@@ -19,13 +22,15 @@ class UserAPI {
         },
         body: jsonEncode(
             <String, String>{'password': pass, 'username': username}));
-    print(response);
     print(response.body);
 
-    return Future.delayed(
-      const Duration(seconds: 1),
-      () => false,
-    );
+    final body = json.decode(response.body);
+
+    if (body['username'] == '') {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   //TODO prebaci u novi fajl jer nije vezano za usera
