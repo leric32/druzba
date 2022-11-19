@@ -24,6 +24,18 @@
 ///         Author:    Stephen Hutchings
 ///         License:   SIL (http://scripts.sil.org/OFL)
 ///         Homepage:  http://typicons.com/
+/// * Entypo, Copyright (C) 2012 by Daniel Bruce
+///         Author:    Daniel Bruce
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  http://www.entypo.com
+/// * Elusive, Copyright (C) 2013 by Aristeides Stathopoulos
+///         Author:    Aristeides Stathopoulos
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  http://aristeides.com/
+/// * Font Awesome 5, Copyright (C) 2016 by Dave Gandy
+///         Author:    Dave Gandy
+///         License:   SIL (https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt)
+///         Homepage:  http://fortawesome.github.com/Font-Awesome/
 ///
 import 'package:flutter/widgets.dart';
 
@@ -37,4 +49,7 @@ class CustomHome {
   static const IconData access_time = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData people = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData user_add = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData hourglass = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData adult = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData running = IconData(0xf70c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
