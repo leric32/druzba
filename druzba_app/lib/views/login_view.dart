@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:test/views/home_view.dart';
 import 'register_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../api/user.dart';
@@ -74,6 +75,12 @@ class _LoginViewState extends State<LoginView> {
           await SharedPreferences.getInstance();
       sharedPreferences.setString('username', username);
       sharedPreferences.setString('pass', pass);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeView()));
+    } else {
+      //ispisi poruku
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginView()));
     }
   }
 
