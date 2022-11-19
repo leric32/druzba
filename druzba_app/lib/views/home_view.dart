@@ -15,11 +15,18 @@ class HomeView extends StatefulWidget {
   final String title = "Blah";
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<HomeView> createState() => HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class HomeViewState extends State<HomeView> {
   List<Activity> activities = [];
+
+  searchActivity(String term) {
+    //activities = [];
+    //activities = await DataAPI.getActivityList(term); TODO
+    print('radi ' + term);
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -39,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar('nesto'),
+      appBar: GradientAppBar(this),
       body: HomeBody(activities: activities),
       floatingActionButton: SizedBox(
           width: 80,

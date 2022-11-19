@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import '../views/home_view.dart';
 
 class SearchWidget extends StatefulWidget {
   String text = '';
+  HomeViewState hvs;
+
+  SearchWidget(this.hvs);
+
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -29,9 +34,10 @@ class _SearchWidgetState extends State<SearchWidget> {
         color: Colors.white,
         border: Border.all(color: Colors.black26),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
       child: TextField(
-        onSubmitted: (value) => {print('test')},
+        onSubmitted: (value) =>
+            {widget.hvs.searchActivity(widget._controller.text)},
         controller: widget._controller,
         decoration: InputDecoration(
           icon: Icon(Icons.search, color: Colors.red),
