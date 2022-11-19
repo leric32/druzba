@@ -35,10 +35,6 @@ class ActivityViewState extends State<ActivityView> {
     super.initState();
   }
 
-  _getNumParticipants() async {
-    join_num = 0;
-    //activity = await UserAPI.nesto(id) OVDE DODATI API FUNKCIJU
-
   void _refreshActivityState(int idA) async {
     final response = await http.post(Uri.parse(API.url + 'get_activity/'),
         headers: <String, String>{
