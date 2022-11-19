@@ -89,7 +89,7 @@ def home(request: HttpRequest):
         temp_dict['duration'] = a.duration
         temp_dict['max_people'] = a.maxpeople
         temp_dict['min_people'] = a.minpeople
-        temp_dict['user_founder'] = a.idu.idu
+        temp_dict['user_founder'] = a.idu.username
         act.append(temp_dict)
 
     return JsonResponse({'act': act})
