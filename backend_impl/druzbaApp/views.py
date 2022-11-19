@@ -279,6 +279,7 @@ def edit_activity(request: HttpRequest):
 def edit_user(request: HttpRequest):
 
     if request.method == 'POST':
+
         user = Users.objects.filter(idu=request.POST['idu']).first()
         user.username = request.POST['username']
         user.password = make_password(request.POST['password'])
