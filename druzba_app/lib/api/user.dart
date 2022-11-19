@@ -4,7 +4,7 @@ import 'package:test/views/login_view.dart';
 import 'package:test/views/home_view.dart';
 import 'url.dart';
 import 'package:http/http.dart' as http;
-import '../models/activity.dart';
+
 import 'package:flutter/material.dart';
 
 class UserAPI {
@@ -59,6 +59,7 @@ class UserAPI {
       return true;
     }
   }
+<<<<<<< Updated upstream
 
   //TODO prebaci u novi fajl jer nije vezano za usera
   static Future<List<Activity>> getActivityList() {
@@ -249,4 +250,6 @@ class UserAPI {
       ],
     );
   }
+=======
+>>>>>>> Stashed changes
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../api/user.dart';
+import '../api/data.dart';
+
 import '../widgets/activity_item.dart';
 import '../models/activity.dart';
 import '../widgets/gradient_app_bar.dart';
@@ -26,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
 
   _getActivities() async {
     activities = [];
-    activities = await UserAPI.getActivityList();
+    activities = await DataAPI.getActivityList();
     setState(() {});
   }
 
