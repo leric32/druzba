@@ -20,6 +20,10 @@
 ///         Author:    Google
 ///         License:   Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
 ///         Homepage:  https://design.google.com/icons/
+/// * Typicons, (c) Stephen Hutchings 2012
+///         Author:    Stephen Hutchings
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  http://typicons.com/
 ///
 import 'package:flutter/widgets.dart';
 
@@ -32,4 +36,5 @@ class CustomHome {
   static const IconData location = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData access_time = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData people = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData user_add = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

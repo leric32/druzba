@@ -38,11 +38,15 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: GradientAppBar('nesto'),
       body: HomeBody(activities: activities),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: SizedBox(
+          width: 80,
+          height: 80,
+          child: FloatingActionButton(
+            backgroundColor: Color(0xfff7892b),
+            onPressed: () => {Navigator.pop(context)},
+            tooltip: 'Increment',
+            child: const Icon(Icons.add, color: Color.fromARGB(255, 2, 2, 2)),
+          )), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
