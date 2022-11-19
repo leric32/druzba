@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'url.dart';
 import 'package:http/http.dart' as http;
 import '../models/activity.dart';
@@ -10,10 +12,19 @@ class UserAPI {
     );
   }
 
-  static Future<bool> login(String username, String pass) {
+  static Future<bool> login(String username, String pass) async {
+    final response = await http.post(Uri.parse(API.url + 'login/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(
+            <String, String>{'password': pass, 'username': username}));
+    print(response);
+    print(response.body);
+
     return Future.delayed(
       const Duration(seconds: 1),
-      () => true,
+      () => false,
     );
   }
 

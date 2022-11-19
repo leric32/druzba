@@ -67,7 +67,7 @@ class _LoginViewState extends State<LoginView> {
   Future<void> _checkLogin() async {
     String username = usernameTextController.text;
     String pass = passwordTextController.text;
-    bool success = await UserAPI.checkLogin(username, pass);
+    bool success = await UserAPI.login(username, pass);
 
     if (success) {
       SharedPreferences sharedPreferences =
