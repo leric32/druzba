@@ -35,6 +35,10 @@ class ActivityViewState extends State<ActivityView> {
     super.initState();
   }
 
+  _getNumParticipants() async {
+    join_num = 0;
+    //activity = await UserAPI.nesto(id) OVDE DODATI API FUNKCIJU
+
   void _refreshActivityState(int idA) async {
     final response = await http.post(Uri.parse(API.url + 'get_activity/'),
         headers: <String, String>{
@@ -45,6 +49,7 @@ class ActivityViewState extends State<ActivityView> {
     print(response.body);
 
     widget.activity = Activity.fromJson(response.body);
+
     setState(() {});
   }
 
@@ -162,7 +167,7 @@ class ActivityViewState extends State<ActivityView> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Row(children: [
                 SizedBox(width: width * 0.00),
-                Icon(CustomHome.people,
+                Icon(CustomHome.running,
                     color: Color(0xffe46b10), size: icon_size),
                 SizedBox(width: width * 0.02),
                 Text(
@@ -170,6 +175,16 @@ class ActivityViewState extends State<ActivityView> {
                   style: TextStyle(fontSize: text_icon_size),
                 ),
               ]),
+              Row(children: [
+                SizedBox(width: width * 0.00),
+                Icon(CustomHome.people,
+                    color: Color(0xffe46b10), size: icon_size),
+                SizedBox(width: width * 0.02),
+                Text(
+                  widget.activity.type,
+                  style: TextStyle(fontSize: text_icon_size),
+                ),
+              ])
             ]),
           ),
         ]),
