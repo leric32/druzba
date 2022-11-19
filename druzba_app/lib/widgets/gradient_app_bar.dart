@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'search_bar.dart';
 
 class GradientAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
-  static const double barHeight = 80.0;
+  static const double barHeight = 50.0;
 
   GradientAppBar(this.title);
 
@@ -22,14 +21,21 @@ class GradientAppBArState extends State<GradientAppBar> {
     final double statusbarHeight = MediaQuery.of(context).padding.top;
 
     return Container(
-        padding: EdgeInsets.only(top: statusbarHeight),
-        height: statusbarHeight + GradientAppBar.barHeight,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)]),
+      padding: EdgeInsets.only(top: statusbarHeight),
+      height: statusbarHeight + GradientAppBar.barHeight,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [Color(0xfffbb448), Color(0xfff7892b)]),
+      ),
+      child: Center(
+        child: Text(
+          widget.title,
+          style: TextStyle(
+              fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        child: SearchWidget());
+      ),
+    );
   }
 }
