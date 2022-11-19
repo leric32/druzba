@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'search_bar.dart';
+import '../icons/custom_home_icons.dart';
 
 class GradientAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -30,6 +31,18 @@ class GradientAppBArState extends State<GradientAppBar> {
               end: Alignment.centerRight,
               colors: [Color(0xfffbb448), Color(0xfff7892b)]),
         ),
-        child: SearchWidget());
+        child: Column(children: [
+          Row(
+            children: [
+              SearchWidget(),
+              IconButton(
+                  onPressed: () => {print('logout')},
+                  icon: Icon(
+                    CustomHome.logout,
+                    color: Colors.black,
+                  ))
+            ],
+          )
+        ]));
   }
 }

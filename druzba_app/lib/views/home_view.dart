@@ -7,6 +7,7 @@ import '../widgets/activity_item.dart';
 import '../models/activity.dart';
 import '../widgets/gradient_app_bar.dart';
 import '../widgets/home_body.dart';
+import 'activity_form_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -45,7 +46,10 @@ class _HomeViewState extends State<HomeView> {
           height: 80,
           child: FloatingActionButton(
             backgroundColor: Color(0xfff7892b),
-            onPressed: () => {Navigator.pop(context)},
+            onPressed: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ActivityFormView()))
+            },
             tooltip: 'Increment',
             child: const Icon(Icons.add, color: Color.fromARGB(255, 2, 2, 2)),
           )), // This trailing comma makes auto-formatting nicer for build methods.

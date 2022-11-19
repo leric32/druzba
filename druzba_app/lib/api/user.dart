@@ -11,7 +11,7 @@ class UserAPI {
   static Future<bool> checkLogin(String username, String pass) {
     return Future.delayed(
       const Duration(seconds: 1),
-      () => false,
+      () => true,
     );
   }
 
