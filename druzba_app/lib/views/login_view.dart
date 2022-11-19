@@ -68,13 +68,14 @@ class _LoginViewState extends State<LoginView> {
   Future<void> _checkLogin() async {
     String username = usernameTextController.text;
     String pass = passwordTextController.text;
-    bool success = await UserAPI.login(username, pass);
+    int idu = await UserAPI.login(username, pass);
 
-    if (success) {
+    if (idu != -1) {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString('username', username);
       sharedPreferences.setString('pass', pass);
+      sharedPreferences.setInt('idU', idu);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomeView()));
     } else {

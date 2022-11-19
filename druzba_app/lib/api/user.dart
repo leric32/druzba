@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/views/login_view.dart';
 import 'package:test/views/home_view.dart';
 import 'url.dart';
@@ -15,7 +16,7 @@ class UserAPI {
     );
   }
 
-  static Future<bool> login(String username, String pass) async {
+  static Future<int> login(String username, String pass) async {
     final response = await http.post(Uri.parse(API.url + 'login/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -26,11 +27,21 @@ class UserAPI {
 
     final body = json.decode(response.body);
 
-    if (body['username'] == '') {
-      return false;
-    } else {
-      return true;
-    }
+    return body['idu'];
+  }
+
+  static Future<bool> join(int idA) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    int idU = sharedPreferences.getInt('idU') ?? 0;
+    final response = await http.post(Uri.parse(API.url + 'join_activity/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, int>{'ida': idA, 'idu': idU}));
+    print(response.body);
+
+    final body = json.decode(response.body);
+    return true;
   }
 
   static Future<bool> register(String username, String pass, String last_name,

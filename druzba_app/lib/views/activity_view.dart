@@ -1,10 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
+import 'package:test/api/data.dart';
+import 'package:test/api/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/activity.dart';
 import '../widgets/gradient_app_bar_small.dart';
 import '../icons/custom_home_icons.dart';
 import 'comments_view.dart';
+import 'package:http/http.dart' as http;
+import 'package:test/api/url.dart';
+import 'dart:convert';
+import 'package:test/views/login_view.dart';
+import 'package:test/views/home_view.dart';
 
 class ActivityView extends StatefulWidget {
   Activity activity;
@@ -22,18 +29,35 @@ class ActivityViewState extends State<ActivityView> {
   final double icon_size = 40;
   final double text_icon_size = 20;
 
-  int join_num = 0;
-
   @override
   void initState() {
-    _getNumParticipants();
+    //_refreshActivityState(widget.activity.idA);
     super.initState();
   }
 
   _getNumParticipants() async {
     join_num = 0;
     //activity = await UserAPI.nesto(id) OVDE DODATI API FUNKCIJU
+
+  void _refreshActivityState(int idA) async {
+    final response = await http.post(Uri.parse(API.url + 'get_activity/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, int>{'ida': idA}));
+
+    print(response.body);
+
+    widget.activity = Activity.fromJson(response.body);
+
     setState(() {});
+  }
+
+  void _joinEvent() async {
+    int idA = widget.activity.idA;
+    bool success = await UserAPI.join(idA);
+
+    _refreshActivityState(idA);
   }
 
   Widget _commentButton() {
@@ -170,7 +194,7 @@ class ActivityViewState extends State<ActivityView> {
           height: 80,
           child: FloatingActionButton(
             backgroundColor: Color(0xfff7892b),
-            onPressed: () => {print("implementiraj da se prijavi")},
+            onPressed: () => {_joinEvent()},
             tooltip: 'Prijava',
             child: const Icon(CustomHome.user_add,
                 color: Color.fromARGB(255, 2, 2, 2)),

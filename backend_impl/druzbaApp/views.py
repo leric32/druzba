@@ -22,11 +22,12 @@ def login_req(request: HttpRequest):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            return JsonResponse({'username': username, 'password': password})
+            idu = user.idu
+            return JsonResponse({'idu': idu})
         else:
-            return JsonResponse({'username': '', 'password': ''},  status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'idu': -1},  status=status.HTTP_400_BAD_REQUEST)
     else:
-        return JsonResponse({'username': '', 'password': ''},  status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'idu': -1},  status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
@@ -203,7 +204,7 @@ def sort(request: HttpRequest):
         temp_dict['duration'] = a.duration
         temp_dict['max_people'] = a.maxpeople
         temp_dict['min_people'] = a.minpeople
-        temp_dict['user_founder'] = a.idu.idu
+        temp_dict['user_founder'] = a.idu.username
         act.append(temp_dict)
 
     return JsonResponse({'act': act})
@@ -253,15 +254,16 @@ def join_activity(request: HttpRequest):
     if request.method == 'POST':
         json_body = json.loads(request.body)
         activ = Activity.objects.filter(ida=json_body['ida']).first()
-        user = request.user
-        ua = UserActivity(ida=activ, idu=user)
-        uatmp = UserActivity.objects.filter(idu=user).filter(ida=activ).first()
+        user = Users.objects.filter(idu=json_body['idu']).first()
+        uatmp = UserActivity(idu=user, ida=activ)
 
-        if uatmp or activ is None:
-            return JsonResponse({'idc': ''}, status=status.HTTP_400_BAD_REQUEST)
+        uat = UserActivity.objects.filter(ida=activ).filter(idu=user).first()
+        
+        if uatmp is None or uat:
+            return JsonResponse({'idua': ''}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            ua.save()
-            return JsonResponse({'idua': ua.idua})
+            uatmp.save()
+            return JsonResponse({'idua': uatmp.idua})
     else:
         return JsonResponse({'idc': ''}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -303,3 +305,30 @@ def edit_user(request: HttpRequest):
         return JsonResponse({'idu': user.idu})
     else:
         return JsonResponse({'idu': ''},  status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+def getActivity(request: HttpRequest):
+    json_body = json.loads(request.body)
+    ida = json_body['ida']
+    a = Activity.objects.filter(ida=ida).first()
+
+    temp_dict = {}
+    temp_dict['idA'] = a.ida
+
+    typeName = Type.objects.filter(pk=a.idt.idt).first().name
+
+    temp_dict['type'] = typeName
+    temp_dict['title'] = a.title
+    temp_dict['description'] = a.desc
+
+    num_of_people = len(UserActivity.objects.filter(ida=a.ida))
+
+    temp_dict['num_of_people'] = num_of_people
+    temp_dict['meeting_point'] = a.meetingpoint
+    temp_dict['time'] = str(a.start_time)
+    temp_dict['duration'] = a.duration
+    temp_dict['max_people'] = a.maxpeople
+    temp_dict['min_people'] = a.minpeople
+    temp_dict['user_founder'] = a.idu.username
+
+    return JsonResponse(temp_dict)

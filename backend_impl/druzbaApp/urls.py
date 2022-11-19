@@ -15,4 +15,5 @@ urlpatterns = [
     path('create_comment/', create_comment, name='create_comment'),
     path('join_activity/', join_activity, name='join_activity'),
     path('edit_user/', edit_user, name='edit_user'),
+    path('get_activity/', getActivity, name='getActivity'),
 ]
