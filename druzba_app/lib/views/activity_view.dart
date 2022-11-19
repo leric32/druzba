@@ -160,7 +160,7 @@ class ActivityViewState extends State<ActivityView> {
           height: 80,
           child: FloatingActionButton(
             backgroundColor: Color(0xfff7892b),
-            onPressed: () => {print("implementiraj da se prijavi")},
+            onPressed: () => {Navigator.pop(context)},
             tooltip: 'Prijava',
             child: const Icon(CustomHome.user_add,
                 color: Color.fromARGB(255, 2, 2, 2)),
