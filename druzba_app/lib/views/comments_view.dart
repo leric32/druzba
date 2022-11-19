@@ -45,7 +45,9 @@ class _CommentViewState extends State<CommentView> {
           height: 80,
           child: FloatingActionButton(
             backgroundColor: Color(0xfff7892b),
-            onPressed: () => {Navigator.pop(context)},
+
+            onPressed: () => {print("implementiraj da se komentarise")},
+
             tooltip: 'Comment',
             child: const Icon(Icons.add, color: Color.fromARGB(255, 2, 2, 2)),
           )), // This trailing comma makes auto-formatting nicer for build methods.
