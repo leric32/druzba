@@ -13,13 +13,6 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final usernameTextController = TextEditingController();
-  final firstNameTextController = TextEditingController();
-  final lastNameTextController = TextEditingController();
-  final emailTextController = TextEditingController();
-  final passTextController1 = TextEditingController();
-  final passTextController2 = TextEditingController();
-
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -41,8 +34,7 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Widget _entryField(String title,
-      {bool isPassword = false, required TextEditingController controller}) {
+  Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -57,7 +49,6 @@ class _RegisterViewState extends State<RegisterView> {
           ),
           TextField(
               obscureText: isPassword,
-              controller: controller,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),
@@ -67,33 +58,29 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Future<void> _register() async {}
-
   Widget _submitButton() {
-    return TextButton(
-        onPressed: _register,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(vertical: 15),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Colors.grey.shade200,
-                    offset: Offset(2, 4),
-                    blurRadius: 5,
-                    spreadRadius: 2)
-              ],
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-          child: Text(
-            'Register',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-        ));
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 15),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.grey.shade200,
+                offset: Offset(2, 4),
+                blurRadius: 5,
+                spreadRadius: 2)
+          ],
+          gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+      child: Text(
+        'RegisterView Now',
+        style: TextStyle(fontSize: 20, color: Colors.white),
+      ),
+    );
   }
 
   Widget _loginAccountLabel() {
@@ -150,14 +137,12 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Username", controller: usernameTextController),
-        _entryField("Email", controller: emailTextController),
-        _entryField("Ime", controller: firstNameTextController),
-        _entryField("Prezime", controller: lastNameTextController),
-        _entryField("Password",
-            isPassword: true, controller: passTextController1),
-        _entryField("Ponovite s",
-            isPassword: true, controller: passTextController2),
+        _entryField("Username"),
+        _entryField("Email"),
+        _entryField("Email"),
+        _entryField("Email"),
+        _entryField("Password", isPassword: true),
+        _entryField("Ponovite s", isPassword: true),
       ],
     );
   }
