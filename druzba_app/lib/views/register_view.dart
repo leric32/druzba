@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:test/api/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login_view.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:test/views/home_view.dart';
 
 class RegisterView extends StatefulWidget {
   RegisterView({Key? key, this.title}) : super(key: key);
@@ -67,7 +69,30 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Future<void> _register() async {}
+  Future<void> _register() async {
+    String username = usernameTextController.text;
+    String pass = passTextController1.text;
+    String pass2 = passTextController2.text;
+    String first_name = firstNameTextController.text;
+    String last_name = lastNameTextController.text;
+    String email = emailTextController.text;
+
+    bool success = await UserAPI.register(
+        username, pass, last_name, pass2, email, first_name);
+
+    if (success) {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString('username', username);
+      sharedPreferences.setString('pass', pass);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeView()));
+    } else {
+      //ispisi poruku
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => RegisterView()));
+    }
+  }
 
   Widget _submitButton() {
     return TextButton(
@@ -150,13 +175,12 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Username", controller: usernameTextController),
+        _entryField("Korisnicko Ime", controller: usernameTextController),
         _entryField("Email", controller: emailTextController),
         _entryField("Ime", controller: firstNameTextController),
         _entryField("Prezime", controller: lastNameTextController),
-        _entryField("Password",
-            isPassword: true, controller: passTextController1),
-        _entryField("Ponovite s",
+        _entryField("Sifra", isPassword: true, controller: passTextController1),
+        _entryField("Ponovite Sifru",
             isPassword: true, controller: passTextController2),
       ],
     );

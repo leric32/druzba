@@ -44,14 +44,14 @@ def registration(request: HttpRequest):
         password = json_body['password']
 
         if not re.fullmatch(r'[A-Za-z0-9@#$%^&+=]{8,}', password):
-            return JsonResponse({'msg': 'ERROR: The password is not valid.'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'msg': 'ERROR: The password is not valid.', 'idu': ''}, status=status.HTTP_400_BAD_REQUEST)
 
         first_name = json_body['first_name']
         last_name = json_body['last_name']
         email = json_body['email']
 
         if not re.search(r"^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$", email):
-            return JsonResponse({'msg': 'ERROR: The email address is not valid.'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'msg': 'ERROR: The email address is not valid.', 'idu': ''}, status=status.HTTP_400_BAD_REQUEST)
 
         user = Users(username=username, password=make_password(password), email=email, first_name=first_name, last_name=last_name)
         u = Users.objects.filter(username=username).first()
