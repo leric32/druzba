@@ -94,7 +94,7 @@ class UserAPI {
             title: 'naslov6',
             type: 'ti2p',
             description:
-                'opis2 pycache__/urls.cpython-39.pyc M backend_impl/druzba/__pycache__/wsgi.cpython-39.pyc M backend_impl/druzba/settings.py M backend_impl/druzbaApp/__pycache__/__init__.cpython-39.pyc M backend_impl/druzbaApp/__pycache__/admin.cpython-39.pyc M backend_impl/druzbaApp/__pycache__/apps.cpython-39.pyc M backend_impl/druzbaApp/__pycache__/models.cpython-39.pyc M backend_impl/druzbaApp/__pycache__/urls.cpython-39.pyc M backend_impl/druzbaApp/__pycache__/views.cpython-39.pyc M backend_impl/druzbaApp/migrations/0001_initial.py D backend_impl/druzbaApp/migrations/0002_comment_idu.py M backend_impl/druzbaApp/migrations/__pycache__/0001_initial.cpython-39.pyc D backend_impl/druzbaApp/migrations/__pycache__/0002_comment_idu.cpython-39.pyc M backend_impl/druzbaApp/migrations/__pycach',
+                'opis2 ghfghfg fghfg hfg fgh fgh f fghgfhfg fghfghfg fghfgh pycache__/urls.cpython-39.pycaApp/migraiuiuouioiuouioiuiuoiouoiuuioiuotions/__pycach',
             num_of_people: 4,
             meeting_point: 'pic2ka materina',
             time: '5.6.72',
