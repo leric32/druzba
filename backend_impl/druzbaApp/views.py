@@ -1,3 +1,4 @@
+import json
 import re
 from django.contrib.auth import authenticate, login, logout
 from django.http import *
@@ -6,6 +7,7 @@ from django.views.decorators.csrf import *
 from django.contrib.auth.hashers import *
 from django.db.models import Q
 from rest_framework import status
+import requests
 
 from .models import *
 
@@ -14,8 +16,9 @@ from .models import *
 def login_req(request: HttpRequest):
 
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        json_body = json.loads(request.body)
+        username = json_body['username']
+        password = json_body['password']
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
@@ -36,15 +39,16 @@ def logout_req(request: HttpRequest):
 def registration(request: HttpRequest):
 
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        json_body = json.loads(request.body)
+        username = json_body['username']
+        password = json_body['password']
 
         if not re.fullmatch(r'[A-Za-z0-9@#$%^&+=]{8,}', password):
             return JsonResponse({'msg': 'ERROR: The password is not valid.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        email = request.POST['email']
+        first_name = json_body['first_name']
+        last_name = json_body['last_name']
+        email = json_body['email']
 
         if not re.search(r"^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$", email):
             return JsonResponse({'msg': 'ERROR: The email address is not valid.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -94,7 +98,8 @@ def home(request: HttpRequest):
 @csrf_exempt
 def search(request: HttpRequest):
 
-    word = request.POST['word']
+    json_body = json.loads(request.body)
+    word = json_body['word']
 
     activities = Activity.objects.filter(title__icontains=word).all()
     act = []
@@ -126,8 +131,9 @@ def search(request: HttpRequest):
 @csrf_exempt
 def filter(request: HttpRequest):
 
-    type = request.POST.get('type')
-    meeting_point = request.POST.get('meeting_point')
+    json_body = json.loads(request.body)
+    type = json_body.get('type')
+    meeting_point = json_body.get('meeting_point')
 
     typeObj = Type.objects.filter(name=type).first()
 
@@ -167,10 +173,11 @@ def filter(request: HttpRequest):
 @csrf_exempt
 def sort(request: HttpRequest):
 
-    word = request.POST.get('word')
+    json_body = json.loads(request.body)
+    word = json_body.get('word')
 
     sortWord = ''
-    asc = request.POST.get('asc')
+    asc = json_body.get('asc')
     if asc == '-':
         sortWord += str(asc)
 
@@ -206,14 +213,16 @@ def sort(request: HttpRequest):
 def create_activity(request: HttpRequest):
 
     if request.method == 'POST':
-        title = request.POST['title']
-        desc = request.POST['desc']
-        mp = request.POST['meeting_point']
-        st = request.POST['start_time']
-        duration = request.POST['duration']
-        minp = request.POST['min_people']
-        maxp = request.POST['max_people']
-        type = Type.objects.filter(name=request.POST['typeName']).first()
+        json_body = json.loads(request.body)
+
+        title = json_body['title']
+        desc = json_body['desc']
+        mp = json_body['meeting_point']
+        st = json_body['start_time']
+        duration = json_body['duration']
+        minp = json_body['min_people']
+        maxp = json_body['max_people']
+        type = Type.objects.filter(name=json_body['typeName']).first()
         user = request.user
         activ = Activity(title=title, desc=desc, meetingpoint=mp, start_time=st, duration=duration,
                          minpeople=minp, maxpeople=maxp, idt=type, idu=user)
@@ -227,8 +236,9 @@ def create_activity(request: HttpRequest):
 def create_comment(request: HttpRequest):
 
     if request.method == 'POST':
-        desc = request.POST['desc']
-        activ = Activity.objects.filter(ida=request.POST['ida']).first()
+        json_body = json.loads(request.body)
+        desc = json_body['desc']
+        activ = Activity.objects.filter(ida=json_body['ida']).first()
         user = request.user
         comment = Comment(desc=desc, idu=user, ida=activ)
         comment.save()
@@ -241,7 +251,8 @@ def create_comment(request: HttpRequest):
 def join_activity(request: HttpRequest):
 
     if request.method == 'POST':
-        activ = Activity.objects.filter(ida=request.POST['ida']).first()
+        json_body = json.loads(request.body)
+        activ = Activity.objects.filter(ida=json_body['ida']).first()
         user = request.user
         ua = UserActivity(ida=activ, idu=user)
         uatmp = UserActivity.objects.filter(idu=user).filter(ida=activ).first()
@@ -259,15 +270,16 @@ def join_activity(request: HttpRequest):
 def edit_activity(request: HttpRequest):
 
     if request.method == 'POST':
-        activ = Activity.objects.filter(ida=request.POST['ida']).first()
-        activ.title = request.POST['title']
-        activ.desc = request.POST['desc']
-        activ.meetingpoint = request.POST['meeting_point']
-        activ.start_time = request.POST['start_time']
-        activ.duration = request.POST['duration']
-        activ.minpeople = request.POST['min_people']
-        activ.maxpeople = request.POST['max_people']
-        activ.idt = Type.objects.filter(name=request.POST['typeName']).first()
+        json_body = json.loads(request.body)
+        activ = Activity.objects.filter(ida=json_body['ida']).first()
+        activ.title = json_body['title']
+        activ.desc = json_body['desc']
+        activ.meetingpoint = json_body['meeting_point']
+        activ.start_time = json_body['start_time']
+        activ.duration = json_body['duration']
+        activ.minpeople = json_body['min_people']
+        activ.maxpeople = json_body['max_people']
+        activ.idt = Type.objects.filter(name=json_body['typeName']).first()
 
         activ.save()
         return JsonResponse({'ida': activ.ida})
@@ -279,13 +291,13 @@ def edit_activity(request: HttpRequest):
 def edit_user(request: HttpRequest):
 
     if request.method == 'POST':
-
-        user = Users.objects.filter(idu=request.POST['idu']).first()
-        user.username = request.POST['username']
-        user.password = make_password(request.POST['password'])
-        user.first_name = request.POST['first_name']
-        user.last_name = request.POST['last_name']
-        user.email = request.POST['email']
+        json_body = json.loads(request.body)
+        user = Users.objects.filter(idu=json_body['idu']).first()
+        user.username = json_body['username']
+        user.password = make_password(json_body['password'])
+        user.first_name = json_body['first_name']
+        user.last_name = json_body['last_name']
+        user.email = json_body['email']
 
         user.save()
         return JsonResponse({'idu': user.idu})
