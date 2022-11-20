@@ -122,7 +122,7 @@ def search(request: HttpRequest):
         temp_dict['duration'] = a.duration
         temp_dict['max_people'] = a.maxpeople
         temp_dict['min_people'] = a.minpeople
-        temp_dict['user_founder'] = a.idu.idu
+        temp_dict['user_founder'] = a.idu.username
         act.append(temp_dict)
 
     return JsonResponse({'act': act})
@@ -163,7 +163,7 @@ def filter(request: HttpRequest):
         temp_dict['duration'] = a.duration
         temp_dict['max_people'] = a.maxpeople
         temp_dict['min_people'] = a.minpeople
-        temp_dict['user_founder'] = a.idu.idu
+        temp_dict['user_founder'] = a.idu.username
         act.append(temp_dict)
 
     return JsonResponse({'act': act})
@@ -215,12 +215,13 @@ def create_activity(request: HttpRequest):
         title = json_body['title']
         desc = json_body['desc']
         mp = json_body['meeting_point']
+        print(json_body['start_time'])
         st = json_body['start_time']
-        duration = json_body['duration']
-        minp = json_body['min_people']
-        maxp = json_body['max_people']
+        duration = int(json_body['duration'])
+        minp = int(json_body['min_people'])
+        maxp = int(json_body['max_people'])
         type = Type.objects.filter(name=json_body['typeName']).first()
-        user = request.user
+        user = Users.objects.filter(idu=int(json_body['idu'])).first()
         activ = Activity(title=title, desc=desc, meetingpoint=mp, start_time=st, duration=duration,
                          minpeople=minp, maxpeople=maxp, idt=type, idu=user)
         activ.save()

@@ -9,13 +9,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class UserAPI {
-  static Future<bool> checkLogin(String username, String pass) {
-    return Future.delayed(
-      const Duration(seconds: 1),
-      () => false,
-    );
-  }
-
   static Future<int> login(String username, String pass) async {
     final response = await http.post(Uri.parse(API.url + 'login/'),
         headers: <String, String>{
@@ -28,6 +21,16 @@ class UserAPI {
     final body = json.decode(response.body);
 
     return body['idu'];
+  }
+
+  static Future<void> logout() async {
+    final response = await http
+        .post(Uri.parse(API.url + 'logout/'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString('username', '');
+    sharedPreferences.setString('password', '');
   }
 
   static Future<bool> join(int idA) async {

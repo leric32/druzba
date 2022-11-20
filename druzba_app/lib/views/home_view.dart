@@ -21,9 +21,9 @@ class HomeView extends StatefulWidget {
 class HomeViewState extends State<HomeView> {
   List<Activity> activities = [];
 
-  searchActivity(String term) {
-    //activities = [];
-    //activities = await DataAPI.getActivityList(term); TODO
+  searchActivity(String term) async {
+    activities = [];
+    activities = await DataAPI.getSearchedList(term);
     print('radi ' + term);
     setState(() {});
   }

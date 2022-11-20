@@ -5,6 +5,7 @@ import 'login_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:test/views/home_view.dart';
 import 'dart:async';
+import 'package:test/api/data.dart';
 
 class ActivityFormView extends StatefulWidget {
   ActivityFormView({Key? key, this.title}) : super(key: key);
@@ -76,7 +77,25 @@ class _ActivityFormViewState extends State<ActivityFormView> {
   }
 
   Future<void> postActivity() async {
-    print('implementiraj');
+    String title = naslovAktivnostiKontroler.text;
+    String desc = descNameTextController.text;
+    String meeting_point = mestoAktivnostiKontroler.text;
+    String start_time = selectedDate.toString();
+    String duration = trajanjeAktivnostiKontroler.text;
+    String min_people = minAktivnostiKontroler.text;
+    String max_people = passTextController2.text;
+    String type = dropdownvalue;
+
+    bool success = await DataAPI.createActivity(title, meeting_point, desc,
+        duration, max_people, min_people, type, start_time);
+
+    if (success) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeView()));
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ActivityFormView()));
+    }
   }
 
   Widget _submitButton() {

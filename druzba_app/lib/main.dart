@@ -9,17 +9,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-  //DEV
-  sharedPreferences.setString('pass', '123');
-  sharedPreferences.setString('username', '123');
-
   String? pass = sharedPreferences.getString('pass'); //TODO napravi token
   String? username = sharedPreferences.getString('username');
 
   bool isLoggedIn = false;
 
-  if (pass != null && username != null) {
-    isLoggedIn = await UserAPI.checkLogin(username, pass);
+  if (pass != null && username != null && pass != '' && username != '') {
+    await UserAPI.login(username, pass);
+    isLoggedIn = true;
   }
 
   runApp(MyApp(
