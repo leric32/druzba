@@ -115,7 +115,7 @@ class _RegisterViewState extends State<RegisterView> {
                   end: Alignment.centerRight,
                   colors: [Color(0xfffbb448), Color(0xfff7892b)])),
           child: Text(
-            'Register',
+            'Registruj se',
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
         ));
@@ -135,7 +135,7 @@ class _RegisterViewState extends State<RegisterView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Already have an account ?',
+              'Već imate nalog ?',
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
             ),
             SizedBox(
@@ -218,7 +218,6 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
               ),
             ),
-            Positioned(top: 40, left: 0, child: _backButton()),
           ],
         ),
       ),

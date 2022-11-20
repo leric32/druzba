@@ -178,8 +178,8 @@ class ActivityViewState extends State<ActivityView> {
                 SizedBox(width: width * 0.02),
                 Text(
                   '' +
-                      widget.activity.min_people.toString() +
-                      ' - ' +
+                      widget.activity.num_of_people.toString() +
+                      '/' +
                       widget.activity.max_people.toString(),
                   style: TextStyle(fontSize: text_icon_size),
                 ),

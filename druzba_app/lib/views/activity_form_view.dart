@@ -119,7 +119,7 @@ class _ActivityFormViewState extends State<ActivityFormView> {
                   end: Alignment.centerRight,
                   colors: [Color(0xfffbb448), Color(0xfff7892b)])),
           child: Text(
-            'ActivityForm',
+            'Dodaj',
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
         ));

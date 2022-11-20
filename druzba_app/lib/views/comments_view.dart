@@ -30,9 +30,14 @@ class _CommentViewState extends State<CommentView> {
     //comments = [];
     //comments = await UserAPI.getActivityList(); Ovo implementirati
     comments = [
-      Comment(desc: 'Jest Dobro', autor: 'Marko'),
-      Comment(desc: 'Jest lose', autor: 'Niikola'),
-      Comment(desc: 'Jest Doadsdsbro', autor: 'Marsdko')
+      Comment(desc: 'Jako dobra ideja!', autor: 'Marko'),
+      Comment(desc: 'Obavezno dolazim', autor: 'Nikola'),
+      Comment(desc: 'Ja mogu da vozim', autor: 'cmiki'),
+      Comment(desc: 'Ajde ljudi idemo svi', autor: 'tasha'),
+      Comment(
+          desc: 'Kako dobra ideja, nisam znao da ovo postoji', autor: 'aki'),
+      Comment(desc: 'Vauuuu', autor: 'Marko'),
+      Comment(desc: 'Vidimo se ljudi', autor: 'tash')
     ];
     setState(() {});
   }
