@@ -36,6 +36,9 @@ dependencies:
   google_fonts: ^3.0.1
   intl: ^0.17.0
   syncfusion_flutter_maps: ^20.3.57
+  latlong: ^0.6.1
+  flutter_map: any
+  flutter_map_marker_cluster: any
 
 
 
