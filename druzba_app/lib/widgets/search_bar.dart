@@ -26,7 +26,7 @@ class _SearchWidgetState extends State<SearchWidget> {
     final width = MediaQuery.of(context).size.width;
 
     return Container(
-      width: width * 0.8,
+      width: width * 0.6,
       height: 42,
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       decoration: BoxDecoration(

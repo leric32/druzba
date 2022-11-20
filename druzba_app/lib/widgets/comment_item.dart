@@ -23,20 +23,23 @@ class CommentItem extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(15.0),
         ),
-        child: Column(children: [
-          Row(children: [
-            SizedBox(width: width * 0.00),
-            Icon(CustomHome.adult, color: Color(0xffe46b10), size: 30),
-            SizedBox(width: width * 0.02),
+        child: Container(
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+          child: Column(children: [
+            Row(children: [
+              SizedBox(width: width * 0.00),
+              Icon(CustomHome.adult, color: Color(0xffe46b10), size: 30),
+              SizedBox(width: width * 0.02),
+              Text(
+                comment.autor,
+                style: TextStyle(fontSize: 20),
+              ),
+            ]),
             Text(
-              comment.autor,
-              style: TextStyle(fontSize: 20),
+              comment.desc,
+              style: TextStyle(fontSize: 15),
             ),
           ]),
-          Text(
-            comment.desc,
-            style: TextStyle(fontSize: 15),
-          ),
-        ]));
+        ));
   }
 }

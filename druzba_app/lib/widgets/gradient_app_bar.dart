@@ -1,7 +1,10 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:test/views/home_view.dart';
 import 'search_bar.dart';
 import '../icons/custom_home_icons.dart';
+import '../views/map_view.dart';
 
 class GradientAppBar extends StatefulWidget implements PreferredSizeWidget {
   final HomeViewState hvs;
@@ -24,7 +27,7 @@ class GradientAppBArState extends State<GradientAppBar> {
     final double statusbarHeight = MediaQuery.of(context).padding.top;
 
     return Container(
-        padding: EdgeInsets.only(top: statusbarHeight),
+        padding: EdgeInsets.only(top: statusbarHeight, left: 10, right: 10),
         height: statusbarHeight + GradientAppBar.barHeight,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -34,7 +37,20 @@ class GradientAppBArState extends State<GradientAppBar> {
         ),
         child: Column(children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              IconButton(
+                  onPressed: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    MapView(activities: widget.hvs.activities)))
+                      },
+                  icon: Icon(
+                    CustomHome.globe,
+                    color: Colors.black,
+                  )),
               SearchWidget(widget.hvs),
               IconButton(
                   onPressed: () => {print('logout')},
