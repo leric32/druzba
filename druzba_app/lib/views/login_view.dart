@@ -232,7 +232,11 @@ class _LoginViewState extends State<LoginView> {
                 ],
               ),
             ),
+<<<<<<< HEAD
           ),
+=======
+          )
+>>>>>>> a3742577e4d21d2dbb803a464e9a9e288060bc84
         ],
       ),
     ));
