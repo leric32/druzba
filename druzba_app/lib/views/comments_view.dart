@@ -27,8 +27,13 @@ class _CommentViewState extends State<CommentView> {
   }
 
   _getComments() async {
-    comments = [];
+    //comments = [];
     //comments = await UserAPI.getActivityList(); Ovo implementirati
+    comments = [
+      Comment(desc: 'Jest Dobro', autor: 'Marko'),
+      Comment(desc: 'Jest lose', autor: 'Niikola'),
+      Comment(desc: 'Jest Doadsdsbro', autor: 'Marsdko')
+    ];
     setState(() {});
   }
 

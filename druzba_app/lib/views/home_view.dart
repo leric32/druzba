@@ -40,9 +40,6 @@ class HomeViewState extends State<HomeView> {
     setState(() {});
   }
 
-  Icon searchIcon = const Icon(Icons.search);
-  Widget searchBarText = const Text('Nesto');
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

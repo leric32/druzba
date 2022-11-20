@@ -52,5 +52,6 @@ class CustomHome {
   static const IconData hourglass = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData adult = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData logout = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData globe = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData running = IconData(0xf70c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
