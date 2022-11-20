@@ -232,8 +232,7 @@ class _LoginViewState extends State<LoginView> {
                 ],
               ),
             ),
-          ),
-          Positioned(top: 40, left: 0, child: _backButton()),
+          )
         ],
       ),
     ));

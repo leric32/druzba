@@ -218,7 +218,6 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
               ),
             ),
-            Positioned(top: 40, left: 0, child: _backButton()),
           ],
         ),
       ),
