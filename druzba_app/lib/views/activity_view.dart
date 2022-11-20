@@ -177,7 +177,10 @@ class ActivityViewState extends State<ActivityView> {
                     color: Color(0xffe46b10), size: icon_size),
                 SizedBox(width: width * 0.02),
                 Text(
-                  widget.activity.type,
+                  '' +
+                      widget.activity.min_people.toString() +
+                      ' - ' +
+                      widget.activity.max_people.toString(),
                   style: TextStyle(fontSize: text_icon_size),
                 ),
               ])

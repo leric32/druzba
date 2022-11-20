@@ -14,7 +14,6 @@ from .models import *
 
 @csrf_exempt
 def login_req(request: HttpRequest):
-
     if request.method == 'POST':
         json_body = json.loads(request.body)
         username = json_body['username']
@@ -25,9 +24,9 @@ def login_req(request: HttpRequest):
             idu = user.idu
             return JsonResponse({'idu': idu})
         else:
-            return JsonResponse({'idu': -1},  status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'idu': -1}, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return JsonResponse({'idu': -1},  status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'idu': -1}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
@@ -38,23 +37,25 @@ def logout_req(request: HttpRequest):
 
 @csrf_exempt
 def registration(request: HttpRequest):
-
     if request.method == 'POST':
         json_body = json.loads(request.body)
         username = json_body['username']
         password = json_body['password']
 
         if not re.fullmatch(r'[A-Za-z0-9@#$%^&+=]{8,}', password):
-            return JsonResponse({'msg': 'ERROR: The password is not valid.', 'idu': ''}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'msg': 'ERROR: The password is not valid.', 'idu': ''},
+                                status=status.HTTP_400_BAD_REQUEST)
 
         first_name = json_body['first_name']
         last_name = json_body['last_name']
         email = json_body['email']
 
         if not re.search(r"^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$", email):
-            return JsonResponse({'msg': 'ERROR: The email address is not valid.', 'idu': ''}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'msg': 'ERROR: The email address is not valid.', 'idu': ''},
+                                status=status.HTTP_400_BAD_REQUEST)
 
-        user = Users(username=username, password=make_password(password), email=email, first_name=first_name, last_name=last_name)
+        user = Users(username=username, password=make_password(password), email=email, first_name=first_name,
+                     last_name=last_name)
         u = Users.objects.filter(username=username).first()
 
         if u is not None:
@@ -64,11 +65,10 @@ def registration(request: HttpRequest):
             login(request, user)
             return JsonResponse({'idu': user.idu})
     else:
-        return JsonResponse({'idu': ''},  status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'idu': ''}, status=status.HTTP_400_BAD_REQUEST)
 
 
 def home(request: HttpRequest):
-
     activities = Activity.objects.all()
     act = []
 
@@ -98,7 +98,6 @@ def home(request: HttpRequest):
 
 @csrf_exempt
 def search(request: HttpRequest):
-
     json_body = json.loads(request.body)
     word = json_body['word']
 
@@ -131,7 +130,6 @@ def search(request: HttpRequest):
 
 @csrf_exempt
 def filter(request: HttpRequest):
-
     json_body = json.loads(request.body)
     type = json_body.get('type')
     meeting_point = json_body.get('meeting_point')
@@ -173,7 +171,6 @@ def filter(request: HttpRequest):
 
 @csrf_exempt
 def sort(request: HttpRequest):
-
     json_body = json.loads(request.body)
     word = json_body.get('word')
 
@@ -182,7 +179,7 @@ def sort(request: HttpRequest):
     if asc == '-':
         sortWord += str(asc)
 
-    activities = Activity.objects.order_by(sortWord+str(word)).all()
+    activities = Activity.objects.order_by(sortWord + str(word)).all()
 
     act = []
 
@@ -212,7 +209,6 @@ def sort(request: HttpRequest):
 
 @csrf_exempt
 def create_activity(request: HttpRequest):
-
     if request.method == 'POST':
         json_body = json.loads(request.body)
 
@@ -230,12 +226,11 @@ def create_activity(request: HttpRequest):
         activ.save()
         return JsonResponse({'ida': activ.ida})
     else:
-        return JsonResponse({'ida': ''},  status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'ida': ''}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
 def create_comment(request: HttpRequest):
-
     if request.method == 'POST':
         json_body = json.loads(request.body)
         desc = json_body['desc']
@@ -245,12 +240,11 @@ def create_comment(request: HttpRequest):
         comment.save()
         return JsonResponse({'idc': comment.idc})
     else:
-        return JsonResponse({'idc': ''},  status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'idc': ''}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
 def join_activity(request: HttpRequest):
-
     if request.method == 'POST':
         json_body = json.loads(request.body)
         activ = Activity.objects.filter(ida=json_body['ida']).first()
@@ -258,8 +252,9 @@ def join_activity(request: HttpRequest):
         uatmp = UserActivity(idu=user, ida=activ)
 
         uat = UserActivity.objects.filter(ida=activ).filter(idu=user).first()
-        
-        if uatmp is None or uat:
+        num_of_people = len(UserActivity.objects.filter(ida=json_body['ida']))
+
+        if uatmp is None or uat or num_of_people >= activ.maxpeople:
             return JsonResponse({'idua': ''}, status=status.HTTP_400_BAD_REQUEST)
         else:
             uatmp.save()
@@ -270,7 +265,6 @@ def join_activity(request: HttpRequest):
 
 @csrf_exempt
 def edit_activity(request: HttpRequest):
-
     if request.method == 'POST':
         json_body = json.loads(request.body)
         activ = Activity.objects.filter(ida=json_body['ida']).first()
@@ -286,12 +280,11 @@ def edit_activity(request: HttpRequest):
         activ.save()
         return JsonResponse({'ida': activ.ida})
     else:
-        return JsonResponse({'ida': ''},  status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'ida': ''}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
 def edit_user(request: HttpRequest):
-
     if request.method == 'POST':
         json_body = json.loads(request.body)
         user = Users.objects.filter(idu=json_body['idu']).first()
@@ -304,7 +297,8 @@ def edit_user(request: HttpRequest):
         user.save()
         return JsonResponse({'idu': user.idu})
     else:
-        return JsonResponse({'idu': ''},  status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'idu': ''}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @csrf_exempt
 def getActivity(request: HttpRequest):
